@@ -1,0 +1,73 @@
+<div class="modal-header">
+  <div class="row">
+    <div class="col-xs-6">
+      <h3 class="modal-title">Add Event</h3>
+    </div>
+    <div class="col-xs-6 text-right">
+      <i
+        class="fa fa-close"
+        ng-click="vm.dismiss()"
+      ></i>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="day">Day</label>
+      <select
+        class="form-control"
+        ng-options="d as d for d in vm.dates"
+        ng-model="vm.day"
+      >
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        ng-model="vm.event.name"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input
+        type="text"
+        ng-model="vm.event.location"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        ng-model="vm.event.description"
+        class="form-control"
+        ></textarea>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <label for="startTime">Start Time</label>
+        <select
+          class="form-control"
+          ng-options="t as t for t in vm.times"
+          ng-model="vm.event.start_time"
+        >
+        </select>
+      </div>
+      <div class="col-xs-6">
+        <label for="endTime">End Time</label>
+        <select
+          class="form-control"
+          ng-options="t as t for t in vm.times"
+          ng-model="vm.event.end_time"
+        >
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="vm.save()">Submit</button>
+    <button class="btn btn-warning" ng-click="vm.dismiss()">Cancel</button>
+</div>

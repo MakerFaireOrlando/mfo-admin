@@ -1,0 +1,7 @@
+node_modules
+public/dist
+public/node_modules
+public/bower_components
+routes/v1/schedule/*.json
+*.log
+*.sw*
