@@ -26,7 +26,7 @@ function *byYear(){
   var year = this.params.year
   try {
     var data = fs.readFileSync(__dirname + '/schedule.json')
-    data = JSON.parse(data)
+    data = JSON.parse(data) || []
     var years = data.filter(function(item){
       if(item.faire_year === year) {
         return true
@@ -46,7 +46,7 @@ function *create() {
   delete body.meta;
   try {
     var data = fs.readFileSync(__dirname + '/schedule.json')
-    data = JSON.parse(data)
+    data = JSON.parse(data) || []
     data = data.map(function(year){
       if(year.faire_year != meta.year) {
         return year
