@@ -1,6 +1,6 @@
 {
   "name": "mfo-admin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Admin Panel for Maker Faire Orlando",
   "main": "index.js",
   "scripts": {
