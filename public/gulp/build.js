@@ -3,6 +3,8 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
+var fs = require('fs');
+var semver = require('semver');
 
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
@@ -90,5 +92,50 @@ gulp.task('other', function () {
 gulp.task('clean', function (done) {
   $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')], done);
 });
+
+var getPackageJson = function (path) {
+  return JSON.parse(fs.readFileSync(path, 'utf8'));
+};
+
+gulp.task('bump-api', function(){
+  var pkg = getPackageJson('../package.json');
+  var newVer = semver.inc(pkg.version, 'patch');
+
+  return gulp.src([
+    '../package.json'
+  ])
+  .pipe($.bump({
+    version: newVer
+  }))
+  .pipe(gulp.dest('../'))
+
+})
+
+gulp.task('bump-ui', function(){
+  var pkg = getPackageJson('./package.json');
+  var newVer = semver.inc(pkg.version, 'patch');
+
+  return gulp.src([
+    './bower.json',
+    './package.json'
+  ])
+  .pipe($.bump({
+    version: newVer
+  }))
+  .pipe(gulp.dest('./'))
+
+})
+
+gulp.task('commit', function(){
+  var pkg = getPackageJson('./package.json');
+  gulp.src([
+    './bower.json',
+    './package.json',
+    '../package.json'
+  ])
+  .pipe(git.commit("Bump to v" + pkg.version))
+})
+
+gulp.task('bump', ['bump-api', 'bump-ui', 'commit'])
 
 gulp.task('build', ['html', 'fonts', 'other']);
