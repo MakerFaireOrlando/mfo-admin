@@ -133,7 +133,7 @@ gulp.task('commit', function(){
     './package.json',
     '../package.json'
   ])
-  .pipe(git.commit("Bump to v" + pkg.version))
+  .pipe($.git.commit("Bump to v" + pkg.version))
 })
 
 gulp.task('bump', ['bump-api', 'bump-ui', 'commit'])
